@@ -55,6 +55,17 @@ app.put("/items/:id", (req, res) => {
   res.status(200).send(items);
 });
 
+app.delete("/items/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const itemIndex = items.findIndex((item) => item.id === id);
+
+  if (itemIndex === -1) return res.status(404).send("Item not found");
+
+  items.splice(itemIndex, 1);
+
+  res.status(200).send(items);
+});
+
 app.listen(3000, () => {
   console.log("Express server started on port 3000");
 });
